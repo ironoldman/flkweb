@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block title %}
+注册
+{% endblock %}
+
+{% block head %}
+<link   rel="stylesheet", href="{{ url_for('static',filename='css/login_regist.css') }}">
+
+
+
+
+
+<script type="text/javascript" src="/html/jquery.md5.js"></script>
+	<style>
+
+		.passstrength{
+			font-size:5px;
+			line-height:6px;
+		}
+		.ok{
+			font-size:5px;
+			line-height:6px;
+			color:#0c0;
+			}
+		.error{
+			font-size:5px;
+			line-height:6px;
+			color:#f00;
+			}
+		.alert{
+			font-size:5px;
+			line-height:6px;
+			color:#33ff66;
+			}
+		.noenought{
+			font-size:5px;
+			line-height:6px;
+			color:#f00;
+
+			}
+
+    </style>
+	<title>用户注册</title>
+    </head>
+<body>
+<script type="text/jscript">
+$(document).ready(function(e){
+	$('#username').blur(function(){
+		var len = ($('#username').val()).length;
+
+		if(len >= 4 && len <= 20){
+			$('#usernameinfo').hide();
+
+			}
+		else{
+			$('#usernameinfo').show();
+			$('#usernameinfo').html('账号必须大于4位小于20位');
+			$('#usernameinfo').css('color','#FF0000');
+			}
+		return true;
+
+		})
+
+	})
+</script>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+$('#pass').blur(function(e) {
+ var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+ var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+ var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+ if (false == enoughRegex.test($(this).val())) {
+	 $('#passstrength').removeClass();
+	 $('#passstrength').addClass("noenought")
+	 <!--$('#passstrength').className = 'noenought';-->
+ 	$('#passstrength').html('请输入六位以上密码');
+ 	<!--$('#passstrength').css('color','#f00');-->
+ 	}
+ else if (strongRegex.test($(this).val())) {
+	 $('#passstrength').removeClass();
+ 	$('#passstrength').addClass('ok');
+ 	$('#passstrength').html('高级强度');
+	<!--$('#passstrength').css('color','#0c0');-->
+ 	}
+ else if (mediumRegex.test($(this).val())) {
+	 $('#passstrength').removeClass();
+ 	$('#passstrength').addClass('alert');
+ 	$('#passstrength').html('中级强度');
+	<!--$('#passstrength').css('color','#33ff66');-->
+	}
+ else {
+	 $('#passstrength').removeClass();
+ 	$('#passstrength').addClass('error');
+ 	$('#passstrength').html('密码强度太弱');
+ 	<!--$('#passstrength').css('color','#f00');-->
+
+ }
+ return true;
+});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#pass2').blur(function(){
+		var p1=$("#pass").val();
+		var p2=$(this).val();
+		if (p1 != p2){
+			$('#passlike').html("两次密码不一致!");
+			$('#passlike').css('color','#FF0000');
+			}
+		else if($('#passstrength').hasClass("error")){
+			$('#passlike').html("密码强度太弱");
+			$('#passlike').css('color','#FF0000');
+			}
+		else if($('#passstrength').hasClass("noenought")){
+			$('#passlike').html("密码长度不够");
+			$('#passlike').css('color','#FF0000');
+			}
+		else {
+			$('#passlike').html("ok");
+			$('#passlike').css('color','#00FF00');
+			}
+		})
+});
+</script>
+<script>
+$(function(){
+	$('#submit').click(function(){
+		var p1=$("#pass").val();
+		var p2=$("#pass2").val();
+		if(p1 != p2){
+			alert("两次密码不一致");
+			return false;
+			}
+		else if($('#passstrength').hasClass("error")){
+			alert("密码强度不够!");
+			return false;
+			}
+		else if($('#passstrength').hasClass("noenought")){
+			alert("密码长度不够!");
+			return false;
+			}
+		else if ($('#mail').val()==""){
+			alert("邮箱不能为空!")
+			return false;
+			}
+		else if ($('#zsname').val()==""){
+			alert("真实姓名不能为空!")
+			return false;
+			}
+
+		else if ($('#date').val()==""){
+			alert("出生年月不能为空!")
+			return false;
+			}
+
+
+		else if (!($('#sex0').is(':checked')) && !($('#sex1').is(':checked'))){
+			alert("选择性别!");
+			return false;
+
+			}
+		else{
+			var pmd5=$.md5(p1);
+			$("#pass").val(pmd5);
+		}
+		})
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{% block body %}
+<form method="post">
+<div class="from-dl">
+    <h3 class="dl-title">注册</h3>
+ <div class="form-group">
+     <input type="text" class="form-control" placeholder="手机号码" name="telephone">
+ </div>
+    <div class="form-group">
+     <input type="text" class="form-control" placeholder="用户名" id="username" name="username"><span id="usernameinfo" class="passstrength" ></span>
+ </div>
+     <div class="form-group">
+     <input type="password" class="form-control" placeholder="密码" id = 'pass' name="password1"><span id="passstrength" ></span>
+ </div>
+    <div class="form-group">
+     <input type="password" class="form-control" placeholder="确认密码" id = 'pass2' name="password2"><span id="passlike" class="passstrength"></span>
+ </div>
+    <div class="form-group">
+        <button type="subimt" class="btn btn-primary btn-block">立即注册</button>
+    </div>
+</div>
+
+</form>
+{% endblock %}

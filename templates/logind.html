@@ -1,0 +1,87 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->#}
+{#    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"#}
+{#      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">#}
+{#<link   rel="stylesheet", href="{{ url_for('static',filename='css/login_regist.css') }}">#}
+{#    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>#}
+{##}
+{#    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->#}
+{#    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"#}
+{#        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>#}
+{#    <link rel="stylesheet" href="{{ url_for('static',filename='css/base.css') }}">#}
+{#<script src="jquery/jquery-3.1.1.min.js"></script>#}
+{#<script src="Bootstrap/js/bootstrap.min.js"></script>#}
+{#</head>#}
+{#<body>#}
+
+
+
+
+
+          <script type="text/javascript">
+
+$(function() {
+    $("#submit").click(function() {
+
+        var json_obj = {
+        		//username:"aaa"
+			operation:1,
+			telephone:$("#user").val(),
+            password:$("#pass").val(),
+			//$(this).attr("id":$(this).text())
+               };    //JSON对象
+        //alert($(this).text());
+        //$(this).parent().attr("id","del");
+       var json_str = JSON.stringify(json_obj);    //将JSON对象转变成JSON格式的字符串
+        $.post("/login/", json_str, callback, "json");
+    });
+});
+  function callback(json){
+      if(!json.r){
+          $('#myModal').modal('hide');
+          $('#test').load(location.href+' #test');
+
+
+      }
+      else{
+          //alert(json.r)
+          $('#showerr').html(json.error)
+          $('#showerr').removeAttr("hidden");
+
+      }
+	  //alert( json['result'])
+	  //$(#json['result']).remove()
+	  //$("#del").remove()
+        //$('#response').html('code:'+json['status']['code'] + "\tmessage:" + json['status']['message']);
+    }
+</script>
+
+
+<form method="post">
+<div class="from-dl">
+    <h3 class="dl-title" >登录</h3>
+
+ <div class="form-group">
+     <input type="text" class="form-control" placeholder="手机号码" name="telephone" id ='user'>
+ </div>
+     <div class="form-group">
+     <input type="password" class="form-control" placeholder="密码" name = 'password' id='pass'>
+
+ </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-primary btn-block" id = 'submit'  >登录</button>
+        <p id ='showerr' style="color: red;" hidden >test</p>
+    </div>
+</div>
+
+</form>
+
+{##}
+{##}
+{##}
+{##}
+{#</body>#}
+{#</html>#}

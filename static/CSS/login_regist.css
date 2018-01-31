@@ -1,0 +1,34 @@
+.from-dl{
+    width: 300px;
+    margin:0 auto;
+}
+
+
+
+
+
+.passstrength{
+			font-size:5px;
+			line-height:6px;
+		}
+.ok{
+    font-size:5px;
+    line-height:6px;
+    color:#0c0;
+}
+.error{
+    font-size:5px;
+    line-height:6px;
+    color:#f00;
+			}
+.alert{
+    font-size:5px;
+    line-height:6px;
+    color:#33ff66;
+}
+.noenought{
+    font-size:5px;
+    line-height:6px;
+    color:#f00;
+
+}

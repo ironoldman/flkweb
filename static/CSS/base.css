@@ -1,0 +1,22 @@
+.logo{
+    width:150px;
+    height:45px;
+}
+
+.navbar-brand{
+    padding: 3px 3px;
+}
+body{
+    background: #f3f3f3;
+}
+.main{
+    background: #fff;
+    width: 730px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding:10px;
+}
+
+.dl-title{
+    text-align: center;
+}
